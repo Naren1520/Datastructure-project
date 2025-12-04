@@ -1,22 +1,18 @@
 
-// ==========================================
 // NexStock
 // Main Script File - Organized & Modular
-// ==========================================
+// -----------------------------------------------------------------------------------------------------------------------------------------------
 
-// ==========================================
 // 1. GLOBAL VARIABLES & CHART INSTANCES
-// ==========================================
 let allProducts = [];
 let priceChart, quantityChart, distributionChart, topPriceChart, topQuantityChart, valueChart;
 
-// ==========================================
-// 2. DATA LOADING & MANAGEMENT
-// ==========================================
 
-/**
- * Load products from inventory.json
- */
+// 2. DATA LOADING & MANAGEMENT
+
+
+//Load products from inventory.json
+
 async function loadData() {
     try {
         const res = await fetch("../backend/inventory.json");
@@ -31,9 +27,9 @@ async function loadData() {
     }
 }
 
-/**
- * Display all products in table format
- */
+
+// Display all products in table format
+
 function displayProducts() {
     const tbody = document.getElementById("body");
     const emptyMsg = document.getElementById("empty-msg");
@@ -60,9 +56,7 @@ function displayProducts() {
     `).join("");
 }
 
-// ==========================================
 // 3. PRODUCT OPERATIONS (ADD, EDIT, DELETE)
-// ==========================================
 
 /**
  * Add a new product to inventory
@@ -110,9 +104,9 @@ function openEditModal(id) {
     }
 }
 
-/**
- * Save edited product changes
- */
+
+ //Save edited product changes
+
 function saveProduct() {
     const id = parseInt(document.getElementById("editId").value);
     const product = allProducts.find(p => p.id === id);
@@ -130,9 +124,8 @@ function saveProduct() {
     }
 }
 
-/**
- * Close edit modal
- */
+//Close edit modal
+
 function closeModal() {
     document.getElementById("editModal").classList.remove("active");
 }
@@ -151,13 +144,11 @@ function deleteProduct(id) {
     }
 }
 
-// ==========================================
-// 4. SEARCH & FILTER OPERATIONS
-// ==========================================
 
-/**
- * Search product by ID and display result
- */
+// 4. SEARCH & FILTER OPERATIONS
+
+//Search product by ID and display result
+
 function searchByID() {
     const id = parseInt(document.getElementById("searchId").value);
     const product = allProducts.find(p => p.id === id);
@@ -187,9 +178,8 @@ function searchByID() {
     }
 }
 
-/**
- * Search product by name in table
- */
+//Search product by name in table
+
 function searchByName() {
     const searchTerm = document.getElementById("searchName").value.toLowerCase().trim();
     const resultDiv = document.getElementById("searchResultByName");
@@ -219,9 +209,8 @@ function searchByName() {
     resultDiv.innerHTML = html;
 }
 
-/**
- * Search product by price
- */
+// Search product by price
+
 function searchByPrice() {
     const price = parseFloat(document.getElementById("searchPrice").value);
     const resultDiv = document.getElementById("searchResultByPrice");
@@ -251,9 +240,8 @@ function searchByPrice() {
     resultDiv.innerHTML = html;
 }
 
-/**
- * Search in products table
- */
+ // Search in products table
+
 function searchProduct() {
     const filter = document.getElementById("search").value.toLowerCase();
     const rows = document.querySelectorAll("#table tbody tr");
@@ -264,41 +252,38 @@ function searchProduct() {
     });
 }
 
-// ==========================================
-// 5. SORTING OPERATIONS
-// ==========================================
 
-/**
- * Sort products by ID
- */
+// 5. SORTING OPERATIONS
+
+
+//Sort products by ID
+
 function sortByID() {
     allProducts.sort((a, b) => a.id - b.id);
     displayProducts();
 }
 
-/**
- * Sort products by Name
- */
+
+//Sort products by Name
+
 function sortByName() {
     allProducts.sort((a, b) => a.name.localeCompare(b.name));
     displayProducts();
 }
 
-/**
- * Sort products by Price
- */
+
+//Sort products by Price
+
 function sortByPrice() {
     allProducts.sort((a, b) => a.price - b.price);
     displayProducts();
 }
 
-// ==========================================
-// 6. DASHBOARD STATISTICS
-// ==========================================
 
-/**
- * Update dashboard with inventory statistics
- */
+// 6. DASHBOARD STATISTICS
+
+
+//Update dashboard with inventory statistics
 function updateDashboard() {
     const total = allProducts.length;
     const totalValue = allProducts.reduce((sum, p) => sum + (p.price * p.quantity), 0);
@@ -311,9 +296,9 @@ function updateDashboard() {
     document.getElementById("avgPrice").textContent = `$${avgPrice.toFixed(2)}`;
 }
 
-// ==========================================
+
 // 7. CHART OPERATIONS
-// ==========================================
+
 
 /**
  * Update all charts with current product data
