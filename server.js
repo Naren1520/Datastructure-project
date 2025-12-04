@@ -65,9 +65,8 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // ==========================================
+    
     // API ENDPOINTS FOR BACKEND COMMUNICATION
-    // ==========================================
 
     // GET all products
     if (pathname === '/api/products' && req.method === 'GET') {
@@ -411,9 +410,9 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // ==========================================
+    
     // SERVE STATIC FILES (FRONTEND)
-    // ==========================================
+    
 
     if (pathname === '/backend/inventory.json') {
         const inventory = readInventory();
