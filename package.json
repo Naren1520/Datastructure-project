@@ -1,0 +1,21 @@
+{
+  "name": "nexstock",
+  "version": "1.0.0",
+  "description": "Enterprise-Grade Inventory Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "inventory",
+    "management",
+    "analytics",
+    "rentals"
+  ],
+  "author": "Naren S J",
+  "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  }
+}
