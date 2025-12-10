@@ -59,7 +59,7 @@
 
         async function loadData() {
             try {
-                const res = await fetch("/api/products");
+                const res = await fetch("/api/c/products");
                 if (!res.ok) throw new Error("Failed to load inventory");
                 allProducts = await res.json();
             } catch (error) {
@@ -80,7 +80,7 @@
             if (product) {
                 resultDiv.innerHTML = `
                     <div class="card" style="background: #d4edda; margin-top: 30px;">
-                        <h3 style="color: #155724; margin-bottom: 20px;">✓ Product Found</h3>
+                        <h3 style="color: #155724; margin-bottom: 20px;">✓ Product Found (C Backend)</h3>
                         <table>
                             <tr><th>Property</th><th>Value</th></tr>
                             <tr><td><strong>ID</strong></td><td>${product.id}</td></tr>
@@ -95,7 +95,7 @@
                 resultDiv.innerHTML = `
                     <div class="card" style="background: #f8d7da; margin-top: 30px;">
                         <h3 style="color: #721c24;">✗ Product Not Found</h3>
-                        <p style="color: #721c24;">No product with ID <strong>${id}</strong> found in inventory.</p>
+                        <p style="color: #721c24;">No product with ID <strong>${id}</strong> found in C backend inventory.</p>
                     </div>
                 `;
             }
@@ -123,7 +123,7 @@
                             <tbody>`;
             
             results.forEach(p => {
-                html += `<tr><td>${p.id}</td><td>${p.name}</td><td>$${p.price.toFixed(2)}</td><td>${p.quantity}</td></tr>`;
+                html += `<tr><td>${p.id}</td><td>${p.name}</td><td>₹${p.price.toFixed(2)}</td><td>${p.quantity}</td></tr>`;
             });
             
             html += '</tbody></table>';

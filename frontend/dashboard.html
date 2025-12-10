@@ -65,7 +65,7 @@
 
         async function loadData() {
             try {
-                const res = await fetch("/api/products");
+                const res = await fetch("/api/c/products");
                 if (!res.ok) throw new Error("Failed to load inventory");
                 allProducts = await res.json();
                 updateDashboard();

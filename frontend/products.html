@@ -148,12 +148,13 @@
 
         async function loadData() {
             try {
-                const res = await fetch("/api/products");
+                const res = await fetch("/api/c/products");
                 if (!res.ok) throw new Error("Failed to load inventory");
                 allProducts = await res.json();
                 displayProducts();
             } catch (error) {
                 console.error("Error loading data:", error);
+                alert("Failed to load inventory from C backend");
             }
         }
 
@@ -195,19 +196,37 @@
             });
         }
 
-        function sortByID() {
-            allProducts.sort((a, b) => a.id - b.id);
-            displayProducts();
+        async function sortByID() {
+            try {
+                const res = await fetch("/api/c/product/sort/id");
+                const result = await res.json();
+                allProducts = result.products;
+                displayProducts();
+            } catch (error) {
+                console.error("Error:", error);
+            }
         }
 
-        function sortByName() {
-            allProducts.sort((a, b) => a.name.localeCompare(b.name));
-            displayProducts();
+        async function sortByName() {
+            try {
+                const res = await fetch("/api/c/product/sort/name");
+                const result = await res.json();
+                allProducts = result.products;
+                displayProducts();
+            } catch (error) {
+                console.error("Error:", error);
+            }
         }
 
-        function sortByPrice() {
-            allProducts.sort((a, b) => a.price - b.price);
-            displayProducts();
+        async function sortByPrice() {
+            try {
+                const res = await fetch("/api/c/product/sort/price");
+                const result = await res.json();
+                allProducts = result.products;
+                displayProducts();
+            } catch (error) {
+                console.error("Error:", error);
+            }
         }
 
         function openEditModal(id) {
@@ -233,7 +252,7 @@
             }
 
             try {
-                const res = await fetch("/api/products", {
+                const res = await fetch("/api/c/product/update", {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ id, name, price, quantity })
@@ -246,7 +265,7 @@
                 
                 await loadData();
                 closeModal();
-                alert("Product updated successfully!");
+                alert("Product updated successfully! (C Backend)");
             } catch (error) {
                 console.error("Error:", error);
                 alert("Failed to update product: " + error.message);
@@ -288,7 +307,7 @@
             }
 
             try {
-                const res = await fetch("/api/sell", {
+                const res = await fetch("/api/c/product/sell", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ productId, quantitySold: quantityToSell })
@@ -302,7 +321,7 @@
                 const result = await res.json();
                 await loadData();
                 closeSellModal();
-                alert(`Sold ${quantityToSell} unit(s)! New quantity: ${result.product.quantity}`);
+                alert(`Sold ${quantityToSell} unit(s)! New quantity: ${result.quantity_remaining} (C Backend)`);
             } catch (error) {
                 console.error("Error:", error);
                 alert("Failed to sell product: " + error.message);
@@ -352,7 +371,7 @@
             }
 
             try {
-                const res = await fetch("/api/rent", {
+                const res = await fetch("/api/c/rental/record", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ productId, renterName, phoneNumber, address, returnDate, amountPaid })
@@ -365,7 +384,7 @@
 
                 const result = await res.json();
                 closeRentModal();
-                alert(`Rental recorded successfully!\nRental ID: ${result.rental.rentalId}`);
+                alert(`Rental recorded successfully!\nRental ID: ${result.rental.rentalId} (C Backend)`);
                 // Redirect to rentals page after delay
                 setTimeout(() => {
                     window.location.href = 'rentals.html';
@@ -380,7 +399,7 @@
             if (confirm("Are you sure you want to delete this product?")) {
                 try {
                     const productId = parseInt(id);
-                    const res = await fetch("/api/products", {
+                    const res = await fetch("/api/c/product/delete", {
                         method: "DELETE",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ id: productId })
@@ -392,7 +411,7 @@
                     }
                     
                     await loadData();
-                    alert("Product deleted successfully!");
+                    alert("Product deleted successfully! (C Backend)");
                 } catch (error) {
                     console.error("Error:", error);
                     alert("Failed to delete product: " + error.message);

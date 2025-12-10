@@ -109,7 +109,7 @@
 
         async function loadRentals() {
             try {
-                const res = await fetch("/api/rentals");
+                const res = await fetch("/api/c/rentals");
                 if (!res.ok) throw new Error("Failed to load rentals");
                 allRentals = await res.json();
                 displayRentals();
@@ -205,7 +205,7 @@
 
             if (confirm(`Mark rental for "${rental.productName}" from ${rental.renterName} as returned?`)) {
                 try {
-                    const res = await fetch("/api/rentals/return", {
+                    const res = await fetch("/api/c/rental/return", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ rentalId })

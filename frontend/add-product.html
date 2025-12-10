@@ -68,7 +68,7 @@
 
         async function loadData() {
             try {
-                const res = await fetch("/api/products");
+                const res = await fetch("/api/c/products");
                 if (!res.ok) throw new Error("Failed to load inventory");
                 allProducts = await res.json();
             } catch (error) {
@@ -95,7 +95,7 @@
             }
 
             try {
-                const res = await fetch("/api/products", {
+                const res = await fetch("/api/c/product/add", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ id, name, price, quantity })
@@ -107,7 +107,7 @@
                 }
                 
                 await loadData();
-                showSuccess("Product added successfully! Data saved to backend.");
+                showSuccess("Product added successfully via C Backend! Data saved to backend/inventory.json");
                 e.target.reset();
                 document.getElementById("productId").focus();
             } catch (error) {
