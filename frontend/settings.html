@@ -8,9 +8,31 @@
 </head>
 <body>
     <script src="profile-icon.js"></script>
+    
+    <!-- Mobile Hamburger Menu -->
+    <button class="hamburger-btn" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav">
+        <a href="main.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="add-product.html">Add Product</a>
+        <a href="search.html">Search</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="settings.html" class="active">Settings</a>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+
     <div class="container">
         <div class="header">
-            <h1>⚙️ Settings</h1>
+            <h1>Settings</h1>
             <p>Manage your preferences, theme, and profile</p>
         </div>
 
@@ -27,7 +49,7 @@
         <div class="settings-grid">
             <!-- Theme Section -->
             <div class="settings-card">
-                <h2>🎨 Theme</h2>
+                <h2>Theme</h2>
                 <div class="setting-item">
                     <label for="themeToggle">Dark Mode</label>
                     <label class="toggle-switch">
@@ -40,7 +62,7 @@
 
             <!-- Font Section -->
             <div class="settings-card">
-                <h2>📝 Font Settings</h2>
+                <h2>Font Settings</h2>
                 <div class="setting-item">
                     <label for="fontFamily">Font Family</label>
                     <select id="fontFamily" onchange="applyFontFamily()">
@@ -230,5 +252,6 @@
             }
         }
     </script>
+    <script src="mobile-menu.js"></script>
 </body>
 </html>

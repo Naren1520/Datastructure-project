@@ -8,9 +8,31 @@
 </head>
 <body>
     <script src="profile-icon.js"></script>
+    
+    <!-- Mobile Hamburger Menu -->
+    <button class="hamburger-btn" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav">
+        <a href="main.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="add-product.html" class="active">Add Product</a>
+        <a href="search.html">Search</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+
     <div class="container">
         <div class="header">
-            <h1>➕ Add New Product</h1>
+            <h1>Add New Product</h1>
             <p>Add a new product to your inventory</p>
         </div>
 
@@ -132,5 +154,6 @@
 
         loadData();
     </script>
+    <script src="mobile-menu.js"></script>
 </body>
 </html>

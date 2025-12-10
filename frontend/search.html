@@ -8,9 +8,31 @@
 </head>
 <body>
     <script src="profile-icon.js"></script>
+    
+    <!-- Mobile Hamburger Menu -->
+    <button class="hamburger-btn" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav">
+        <a href="main.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="add-product.html">Add Product</a>
+        <a href="search.html" class="active">Search</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+
     <div class="container">
         <div class="header">
-            <h1>🔎 Search Product</h1>
+            <h1>Search Product</h1>
             <p>Find products by ID or other details</p>
         </div>
 
@@ -33,7 +55,7 @@
             <div id="searchResult"></div>
 
             <div style="margin-top: 50px; border-top: 2px solid #e0e0e0; padding-top: 30px;">
-                <h3>📊 Search by Other Criteria</h3>
+                <h3>Search by Other Criteria</h3>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="searchName">Product Name</label>
@@ -161,5 +183,6 @@
 
         loadData();
     </script>
+    <script src="mobile-menu.js"></script>
 </body>
 </html>

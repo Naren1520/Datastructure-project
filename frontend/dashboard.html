@@ -9,9 +9,31 @@
 </head>
 <body>
     <script src="profile-icon.js"></script>
+    
+    <!-- Mobile Hamburger Menu -->
+    <button class="hamburger-btn" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav">
+        <a href="main.html">Home</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="add-product.html">Add Product</a>
+        <a href="search.html">Search</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+
     <div class="container">
         <div class="header">
-            <h1>📊 Dashboard</h1>
+            <h1>Dashboard</h1>
             <p>Real-time inventory statistics and analytics</p>
         </div>
 
@@ -57,7 +79,7 @@
 
     <footer>
         <p>Developed by Naren S J</p>
-        <p style="font-size: 0.9em; margin-top: 10px; color: rgba(255, 255, 255, 0.8);">NexStock © 2025</p>
+        <p class="footer-copyright">NexStock © 2025</p>
     </footer>
     <script>
         let allProducts = [];
@@ -140,5 +162,6 @@
 
         loadData();
     </script>
+    <script src="mobile-menu.js"></script>
 </body>
 </html>
