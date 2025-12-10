@@ -38,15 +38,6 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    
-    // API ENDPOINTS FOR C BACKEND ONLY
-    // All product and rental operations now use C backend
-    
-
-    
-    // C BACKEND API ENDPOINTS
-    
-
     // GET all products via C backend
     if (pathname === '/api/c/products' && req.method === 'GET') {
         const products = cBackend.readInventory().products;
@@ -282,10 +273,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    
-    // SERVE STATIC FILES (FRONTEND)
-    
-
+    // Serve static files (frontend)
     let filePath = pathname === '/' ? '/frontend/index.html' : `/frontend${pathname}`;
     filePath = path.join(__dirname, filePath);
 
@@ -358,11 +346,11 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`\n 🚀 NexStock Server - C Backend Only (No JavaScript Backend) running at http://localhost:${PORT}`);
+    console.log(`\n  NexStock Server - C Backend running at http://localhost:${PORT}`);
     console.log(` Frontend: http://localhost:${PORT}/`);
     console.log(`Dashboard: http://localhost:${PORT}/dashboard.html`);
     console.log(`Products: http://localhost:${PORT}/products.html`);
-    console.log(`\n ⚙️  C Backend API Endpoints (Only these are available):`);
+    console.log(`\n   C Backend API Endpoints (Only these are available):`);
     console.log(`   GET    /api/c/products              - Get all products`);
     console.log(`   POST   /api/c/product/add           - Add new product`);
     console.log(`   DELETE /api/c/product/delete        - Delete product`);
@@ -375,8 +363,7 @@ server.listen(PORT, () => {
     console.log(`   POST   /api/c/rental/record         - Record rental transaction`);
     console.log(`   GET    /api/c/rentals               - Get all rentals`);
     console.log(`   PUT    /api/c/rental/return         - Mark rental as returned`);
-    console.log(`\n 💾 Data Storage: backend/inventory.json (C backend handles all read/write)`);
-    console.log(`✅ All operations now use C backend via c-backend.js module`);
-    console.log(`❌ Old JavaScript API endpoints have been disabled\n`);
+    console.log(`\n Data Storage: backend/inventory.json (C backend handles all read/write)`);
+    console.log(`All operations use C backend via c-backend.js module`);
     console.log(`Press Ctrl+C to stop the server\n`);
 });
