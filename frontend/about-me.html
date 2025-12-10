@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Developer - NexStack</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: #1e293b;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            border: 1px solid #334155;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #334155;
+            gap: 15px;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: #f8fafc;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .dashboard-btn {
+            background: #667eea;
+        }
+
+        .dashboard-btn:hover {
+            background: #5568d3;
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            overflow: hidden;
+            border: 4px solid #3b82f6;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(59, 130, 246, 0.5);
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: #f8fafc;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .role {
+            color: #3b82f6;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .tagline {
+            color: #cbd5e1;
+            font-size: 1.1em;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            color: #f8fafc;
+            font-size: 1.9em;
+            margin-bottom: 25px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #3b82f6;
+        }
+
+        .about-text {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-bottom: 20px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            color: #f8fafc;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #334155;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .skill-name {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            margin-top: 10px;
+            font-size: 1.05em;
+        }
+
+        .experience-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .experience-card {
+            background: #0f172a;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .exp-title {
+            color: #f8fafc;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .exp-company {
+            color: #3b82f6;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .achievement-box {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .achievement-number {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 10px;
+        }
+
+        .achievement-text {
+            font-size: 1.3em;
+            color: #e0e7ff;
+            font-weight: 500;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #f8fafc;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid transparent;
+        }
+
+        .contact-btn.primary {
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .contact-btn.primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .contact-btn.secondary {
+            background: transparent;
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .contact-btn.secondary:hover {
+            background: #3b82f6;
+            color: #f8fafc;
+            transform: translateY(-2px);
+        }
+
+        .contact-btn.whatsapp {
+            background: #25d366;
+            border-color: #25d366;
+            color: #fff;
+        }
+
+        .contact-btn.whatsapp:hover {
+            background: #20ba5a;
+            border-color: #20ba5a;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .about-text-center {
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #64748b;
+        }
+
+        .expertise {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .expertise-badge {
+            background: #3b82f6;
+            color: #f8fafc;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-nav {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .back-btn {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .contact-links {
+                flex-direction: column;
+            }
+
+            .contact-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-nav">
+            <a href="main.html" class="back-btn">← Back to Home</a>
+        </div>
+        
+        <div class="header">
+            <div class="profile-img">
+                <img src="./assests/naren.jpg" alt="Naren S J Profile" id="profileImage">
+            </div>
+            <h1>About the Developer</h1>
+            <p class="role">Full Stack Developer & Cybersecurity Enthusiast</p>
+            <div class="expertise">
+                <span class="expertise-badge">Full Stack Development</span>
+                <span class="expertise-badge">Cybersecurity</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">My Story</h2>
+            <p class="about-text">
+                Welcome! I'm the developer behind NexStack, a project born from my passion for creating secure, 
+                scalable, and efficient web applications. As a full stack developer with a deep interest in 
+                cybersecurity, I bring a unique perspective to building applications that are not only functional 
+                but also secure by design.
+            </p>
+            <p class="about-text">
+                My journey in technology has led me to master both frontend and backend development while 
+                maintaining a strong focus on security best practices. NexStack represents the culmination 
+                of my expertise, built with modern technologies and a security-first mindset.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-name">HTML</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">CSS</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Tailwind CSS</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">JavaScript</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">TypeScript</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">React.js</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Next.js</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Node.js</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Express.js</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Java</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Python</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Figma</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Git</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Supabase</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">Kali Linux</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">FatRat</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-list">
+                <div class="experience-card">
+                    <h3 class="exp-title">Web Development Lead</h3>
+                    <p class="exp-company">ISDC</p>
+                </div>
+                <div class="experience-card">
+                    <h3 class="exp-title">Core Team Member</h3>
+                    <p class="exp-company">Challengers (Cybersecurity Domain)</p>
+                </div>
+                <div class="experience-card">
+                    <h3 class="exp-title">Developer Intern</h3>
+                    <p class="exp-company">Sahynex Tech Solutions</p>
+                </div>
+                <div class="experience-card">
+                    <h3 class="exp-title">Member</h3>
+                    <p class="exp-company">IEEE</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Achievements</h2>
+            <div class="achievement-box">
+                <div class="achievement-number">10+</div>
+                <div class="achievement-text">Hackathons Finalist</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="about-text about-text-center">
+                Interested in collaborating or have questions about NexStack? I'd love to hear from you!
+            </p>
+            <div class="contact-links">
+                <a href="https://wa.me/918296833381?text=Hi%20Naren%2C%20I%20would%20like%20to%20connect%20with%20you" class="contact-btn secondary" target="_blank" rel="noopener">WhatsApp Me</a>
+                <a href="https://github.com/Naren1520" class="contact-btn secondary" target="_blank" rel="noopener">View GitHub</a>
+                <a href="https://www.linkedin.com/in/narensj20/" class="contact-btn secondary" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="mailto:narensonu1520@gmail.com" class="contact-btn secondary">Email Me</a>
+                <a href="https://narensj20.netlify.app" class="contact-btn secondary" target="_blank" rel="noopener">Portfolio</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 NexStack. Built with passion and precision.</p>
+        </div>
+    </div>
+</body>
+</html>

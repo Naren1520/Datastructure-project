@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexStock  Workflow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif, 'Segoe UI', Tahoma, Geneva, Verdana;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            color: #93c5fd;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: inline-block;
+            background: rgba(30, 58, 138, 0.4);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(147, 197, 253, 0.3);
+            margin-top: 1rem;
+        }
+
+        .tech-stack span {
+            color: #bfdbfe;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Operation Buttons */
+        .operations-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .op-button {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .op-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .op-button.active {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .op-button:not(.active) {
+            background: #334155;
+            color: #cbd5e1;
+        }
+
+        .op-add.active { background: #22c55e; color: white; }
+        .op-view.active { background: #3b82f6; color: white; }
+        .op-search.active { background: #a855f7; color: white; }
+        .op-delete.active { background: #ef4444; color: white; }
+        .op-sort.active { background: #eab308; color: white; }
+        .op-update.active { background: #f97316; color: white; }
+        .op-rental.active { background: #ec4899; color: white; }
+
+        /* Workflow Card */
+        .workflow-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .workflow-header {
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .workflow-header h2 {
+            font-size: 2rem;
+        }
+
+        .workflow-body {
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #3b82f6, #a855f7, #22c55e);
+        }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 5rem;
+            margin-bottom: 2rem;
+            animation: slideInLeft 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .timeline-step:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-step:nth-child(2) { animation-delay: 0.15s; }
+        .timeline-step:nth-child(3) { animation-delay: 0.2s; }
+        .timeline-step:nth-child(4) { animation-delay: 0.25s; }
+        .timeline-step:nth-child(5) { animation-delay: 0.3s; }
+        .timeline-step:nth-child(6) { animation-delay: 0.35s; }
+        .timeline-step:nth-child(7) { animation-delay: 0.4s; }
+        .timeline-step:nth-child(8) { animation-delay: 0.45s; }
+        .timeline-step:nth-child(9) { animation-delay: 0.5s; }
+        .timeline-step:nth-child(10) { animation-delay: 0.55s; }
+        .timeline-step:nth-child(11) { animation-delay: 0.6s; }
+        .timeline-step:nth-child(12) { animation-delay: 0.65s; }
+
+        .step-number {
+            position: absolute;
+            left: 1rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: white;
+            border: 4px solid #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .step-content {
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .step-content:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: translateX(5px);
+        }
+
+        .step-layer {
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-detail {
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+            background: rgba(255,255,255,0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            opacity: 0.8;
+        }
+
+        /* Layer Colors */
+        .layer-frontend {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .layer-http {
+            background: #e9d5ff;
+            border-color: #a855f7;
+            color: #6b21a8;
+        }
+
+        .layer-server {
+            background: #fed7aa;
+            border-color: #f97316;
+            color: #c2410c;
+        }
+
+        .layer-c {
+            background: #bbf7d0;
+            border-color: #22c55e;
+            color: #15803d;
+        }
+
+        .layer-file {
+            background: #e5e7eb;
+            border-color: #6b7280;
+            color: #374151;
+        }
+
+        /* Architecture Summary */
+        .architecture-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .arch-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .arch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .arch-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .arch-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .arch-frontend {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            color: #93c5fd;
+        }
+
+        .arch-http {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.5);
+            color: #c4b5fd;
+        }
+
+        .arch-server {
+            background: rgba(249, 115, 22, 0.2);
+            border-color: rgba(249, 115, 22, 0.5);
+            color: #fdba74;
+        }
+
+        .arch-c {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.5);
+            color: #86efac;
+        }
+
+        .arch-file {
+            background: rgba(107, 114, 128, 0.2);
+            border-color: rgba(107, 114, 128, 0.5);
+            color: #d1d5db;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            color: #93c5fd;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            animation: fadeIn 1.5s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .op-button {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .workflow-body {
+                padding: 2rem 1rem;
+            }
+
+            .timeline-step {
+                padding-left: 4rem;
+            }
+
+            .step-number {
+                left: 0.5rem;
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.9rem;
+            }
+
+            .timeline::before {
+                left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>NexStock  Workflow</h1>
+                <p>Inventory Management System</p>
+                <div class="tech-stack">
+                    <span>HTML5 + JavaScript → Node.js (Port 8040) → C Backend → JSON Storage</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Operation Buttons -->
+        <div class="operations-grid">
+            <button class="op-button op-add active" data-op="add">
+                ✓ Add Product
+            </button>
+            <button class="op-button op-view" data-op="view">
+                 View Products
+            </button>
+            <button class="op-button op-search" data-op="search">
+                Search Product
+            </button>
+            <button class="op-button op-delete" data-op="delete">
+                Delete Product
+            </button>
+            <button class="op-button op-sort" data-op="sort">
+                Sort Products
+            </button>
+            <button class="op-button op-update" data-op="update">
+                Update Product
+            </button>
+            <button class="op-button op-rental" data-op="rental">
+                Record Rental
+            </button>
+        </div>
+
+        <!-- Workflow Card -->
+        <div class="workflow-card">
+            <div class="workflow-header" id="workflowHeader">
+                <span>✓</span>
+                <h2>Add Product Workflow</h2>
+            </div>
+            <div class="workflow-body">
+                <div class="timeline" id="timeline">
+                    <!-- Steps will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Summary -->
+        <div class="architecture-summary">
+            <div class="arch-card arch-frontend">
+                <div class="arch-icon"></div>
+                <div class="arch-title">Frontend</div>
+                <div class="arch-desc">HTML/CSS/JS UI</div>
+            </div>
+            <div class="arch-card arch-http">
+                <div class="arch-icon"></div>
+                <div class="arch-title">HTTP API</div>
+                <div class="arch-desc">REST Endpoints</div>
+            </div>
+            <div class="arch-card arch-server">
+                <div class="arch-icon"></div>
+                <div class="arch-title">Node.js</div>
+                <div class="arch-desc">Express Server</div>
+            </div>
+            <div class="arch-card arch-c">
+                <div class="arch-icon"></div>
+                <div class="arch-title">C Backend</div>
+                <div class="arch-desc">Business Logic</div>
+            </div>
+            <div class="arch-card arch-file">
+                <div class="arch-icon"></div>
+                <div class="arch-title">JSON Files</div>
+                <div class="arch-desc">Data Storage</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Complete Request-Response Cycle: User Input → Validation → HTTP → Routing → C Processing → File I/O → Response → UI Update
+        </div>
+    </div>
+
+    <script>
+        const operationFlows = {
+            add: {
+                title: 'Add Product Workflow',
+                icon: '✓',
+                color: '#22c55e',
+                steps: [
+                    { layer: 'frontend', text: 'User fills form (ID, Name, Price, Qty)', detail: 'Input validation in browser' },
+                    { layer: 'frontend', text: 'Click "Add Product" button', detail: 'Event listener triggers' },
+                    { layer: 'http', text: 'POST /api/c/product/add', detail: 'JSON: {id, name, price, qty}' },
+                    { layer: 'server', text: 'server.js receives request', detail: 'Parse body, extract data' },
+                    { layer: 'server', text: 'Route to addProduct handler', detail: 'cBackend.addProduct(data)' },
+                    { layer: 'c', text: 'Check if inventory full', detail: 'if (count >= MAX_PRODUCTS)' },
+                    { layer: 'c', text: 'Check duplicate ID', detail: 'Loop through array, compare IDs' },
+                    { layer: 'c', text: 'Create Product struct', detail: 'inventory[count] = newProduct' },
+                    { layer: 'c', text: 'Increment count++', detail: 'count = count + 1' },
+                    { layer: 'file', text: 'Save to inventory.json', detail: 'Write entire array to file' },
+                    { layer: 'http', text: 'Response: {success: true}', detail: 'Status 200, product data' },
+                    { layer: 'frontend', text: 'Show success message', detail: 'Update UI, reload table' }
+                ]
+            },
+            view: {
+                title: 'View Products Workflow',
+                icon: '',
+                color: '#3b82f6',
+                steps: [
+                    { layer: 'frontend', text: 'Click "Load Products" button', detail: 'GET request initiated' },
+                    { layer: 'http', text: 'GET /api/c/products', detail: 'No request body needed' },
+                    { layer: 'server', text: 'Route to readInventory', detail: 'cBackend.readInventory()' },
+                    { layer: 'c', text: 'Open inventory.json', detail: 'fopen("inventory.json", "r")' },
+                    { layer: 'c', text: 'Parse JSON file', detail: 'Use cJSON library to parse' },
+                    { layer: 'file', text: 'Read all products', detail: 'Load array from file' },
+                    { layer: 'c', text: 'Extract product array', detail: 'Loop through JSON objects' },
+                    { layer: 'c', text: 'Build response array', detail: 'Convert structs to JSON' },
+                    { layer: 'http', text: 'Response: products[]', detail: 'Array of all products' },
+                    { layer: 'frontend', text: 'Render table with data', detail: 'DOM manipulation, display rows' }
+                ]
+            },
+            search: {
+                title: 'Search Product Workflow',
+                icon: '',
+                color: '#a855f7',
+                steps: [
+                    { layer: 'frontend', text: 'User enters Product ID', detail: 'Input field validation' },
+                    { layer: 'frontend', text: 'Click "Search" button', detail: 'Trigger search function' },
+                    { layer: 'http', text: 'GET /api/c/search?id=101', detail: 'Query parameter with ID' },
+                    { layer: 'server', text: 'Extract ID from query', detail: 'req.query.id' },
+                    { layer: 'server', text: 'Call searchProduct(id)', detail: 'cBackend.searchProduct(id)' },
+                    { layer: 'c', text: 'Loop through inventory[]', detail: 'for (i=0; i<count; i++)' },
+                    { layer: 'c', text: 'Compare ID with each product', detail: 'if (inventory[i].id == searchId)' },
+                    { layer: 'c', text: 'Found? Return product', detail: 'Return struct data' },
+                    { layer: 'c', text: 'Not found? Return NULL', detail: 'No match in array' },
+                    { layer: 'http', text: 'Response: product or error', detail: 'Found: product data, Not found: 404' },
+                    { layer: 'frontend', text: 'Display result', detail: 'Show product card or "Not Found"' }
+                ]
+            },
+            delete: {
+                title: 'Delete Product Workflow',
+                icon: '',
+                color: '#ef4444',
+                steps: [
+                    { layer: 'frontend', text: 'User enters Product ID', detail: 'ID to delete' },
+                    { layer: 'frontend', text: 'Click "Delete" button', detail: 'Confirmation prompt' },
+                    { layer: 'http', text: 'DELETE /api/c/product/101', detail: 'ID in URL parameter' },
+                    { layer: 'server', text: 'Extract ID from params', detail: 'req.params.id' },
+                    { layer: 'server', text: 'Call deleteProduct(id)', detail: 'cBackend.deleteProduct(id)' },
+                    { layer: 'c', text: 'Find product in array', detail: 'Search loop, get index' },
+                    { layer: 'c', text: 'Shift array left', detail: 'Move all elements after index' },
+                    { layer: 'c', text: 'Decrement count--', detail: 'Reduce total count by 1' },
+                    { layer: 'file', text: 'Update inventory.json', detail: 'Save modified array' },
+                    { layer: 'http', text: 'Response: {deleted: true}', detail: 'Confirmation message' },
+                    { layer: 'frontend', text: 'Remove from table', detail: 'Update DOM, show notification' }
+                ]
+            },
+            sort: {
+                title: 'Sort Products Workflow',
+                icon: '↕',
+                color: '#eab308',
+                steps: [
+                    { layer: 'frontend', text: 'Click "Sort by ID" button', detail: 'Trigger sort request' },
+                    { layer: 'http', text: 'GET /api/c/sort/id', detail: 'Sort endpoint' },
+                    { layer: 'server', text: 'Route to sortByID', detail: 'cBackend.sortByID()' },
+                    { layer: 'c', text: 'Bubble sort algorithm', detail: 'Nested loops for sorting' },
+                    { layer: 'c', text: 'Compare adjacent IDs', detail: 'if (arr[i].id > arr[i+1].id)' },
+                    { layer: 'c', text: 'Swap if needed', detail: 'temp = arr[i]; arr[i] = arr[i+1]' },
+                    { layer: 'c', text: 'Repeat until sorted', detail: 'Continue passes through array' },
+                    { layer: 'file', text: 'Save sorted array', detail: 'Update inventory.json' },
+                    { layer: 'http', text: 'Response: sorted products[]', detail: 'Return ordered array' },
+                    { layer: 'frontend', text: 'Re-render table sorted', detail: 'Display in ID order' }
+                ]
+            },
+            update: {
+                title: 'Update Product Workflow',
+                icon: '',
+                color: '#f97316',
+                steps: [
+                    { layer: 'frontend', text: 'Enter ID and new values', detail: 'Form with updated data' },
+                    { layer: 'frontend', text: 'Click "Update" button', detail: 'Submit changes' },
+                    { layer: 'http', text: 'PATCH /api/c/product/101', detail: 'JSON: {name, price, qty}' },
+                    { layer: 'server', text: 'Extract ID and new data', detail: 'req.params.id + req.body' },
+                    { layer: 'server', text: 'Call updateProduct()', detail: 'cBackend.updateProduct(id, data)' },
+                    { layer: 'c', text: 'Find product by ID', detail: 'Search array for match' },
+                    { layer: 'c', text: 'Update struct fields', detail: 'strcpy(name), price=newPrice' },
+                    { layer: 'c', text: 'Modify quantity if needed', detail: 'inventory[i].qty = newQty' },
+                    { layer: 'file', text: 'Save changes to JSON', detail: 'Write updated array' },
+                    { layer: 'http', text: 'Response: updated product', detail: 'Return modified data' },
+                    { layer: 'frontend', text: 'Update table row', detail: 'Refresh display with new values' }
+                ]
+            },
+            rental: {
+                title: 'Record Rental Workflow',
+                icon: '',
+                color: '#ec4899',
+                steps: [
+                    { layer: 'frontend', text: 'Fill rental form', detail: 'ProductID, Renter, Date, Phone' },
+                    { layer: 'frontend', text: 'Click "Record Rental"', detail: 'Submit rental data' },
+                    { layer: 'http', text: 'POST /api/c/rental/add', detail: 'JSON: rental details' },
+                    { layer: 'server', text: 'Verify product exists', detail: 'Check inventory first' },
+                    { layer: 'server', text: 'Call recordRental()', detail: 'cBackend.recordRental(data)' },
+                    { layer: 'c', text: 'Generate rental ID', detail: 'Auto-increment or timestamp' },
+                    { layer: 'c', text: 'Create Rental struct', detail: 'Fill all rental fields' },
+                    { layer: 'c', text: 'Add to rentals array', detail: 'rentals[rentalCount++]' },
+                    { layer: 'c', text: 'Set status: "active"', detail: 'Mark as currently rented' },
+                    { layer: 'file', text: 'Save to rentals.json', detail: 'Persist rental record' },
+                    { layer: 'http', text: 'Response: rental created', detail: 'Return rental ID and data' },
+                    { layer: 'frontend', text: 'Show confirmation', detail: 'Display rental details' }
+                ]
+            }
+        };
+
+        const layerLabels = {
+            frontend: 'FRONTEND (Browser)',
+            http: 'HTTP LAYER',
+            server: 'BACKEND SERVER (Node.js)',
+            c: 'C BACKEND (inventory.c)',
+            file: 'DATA STORAGE (JSON)'
+        };
+
+        function renderWorkflow(operationId) {
+            const flow = operationFlows[operationId];
+            const timeline = document.getElementById('timeline');
+            const header = document.getElementById('workflowHeader');
+
+            // Update header
+            header.innerHTML = `<span>${flow.icon}</span><h2>${flow.title}</h2>`;
+            header.style.background = flow.color;
+
+            // Clear timeline
+            timeline.innerHTML = '';
+
+            // Render steps
+            flow.steps.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'timeline-step';
+                stepDiv.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <div class="step-content layer-${step.layer}">
+                        <div class="step-layer">${layerLabels[step.layer]}</div>
+                        <div class="step-title">${step.text}</div>
+                        <div class="step-detail">${step.detail}</div>
+                    </div>
+                `;
+                timeline.appendChild(stepDiv);
+            });
+        }
+
+        // Event listeners for buttons
+        document.querySelectorAll('.op-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.op-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                // Render workflow
+                const operation = this.getAttribute('data-op');
+                renderWorkflow(operation);
+            });
+        });
+
+        // Initial render
+        renderWorkflow('add');
+    </script>
+</body>
+</html>

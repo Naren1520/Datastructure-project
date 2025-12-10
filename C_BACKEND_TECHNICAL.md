@@ -4,7 +4,7 @@
 
 ---
 
-## 📚 Table of Contents
+## Table of Contents
 1. [Memory Layout](#memory-layout)
 2. [Data Structures in Detail](#data-structures-in-detail)
 3. [Algorithms Explained](#algorithms-explained)
@@ -100,7 +100,7 @@ After recording 1 rental:
 
 ---
 
-## 📋 Data Structures in Detail
+##  Data Structures in Detail
 
 ### **1. Product Structure**
 
@@ -199,7 +199,7 @@ rentals[0].status = "returned";  // Just change status
 
 ---
 
-## 🔄 Algorithms Explained
+##  Algorithms Explained
 
 ### **Algorithm 1: Add Product**
 
@@ -597,7 +597,7 @@ function recordRental(productId, renterName, returnDate, phoneNumber, address, a
 
 ---
 
-## 📊 Code Flow Examples
+##  Code Flow Examples
 
 ### **Complete Flow: Frontend Click to Data Update**
 
@@ -681,7 +681,7 @@ function recordRental(productId, renterName, returnDate, phoneNumber, address, a
 │     "success": true,                                          │
 │     "message": "Sorted by Name",                              │
 │     "products": [                                             │
-│         {id:3, name:"Keyboard", price:1200, qty:15},        │
+│         {id:3, name:"Keyboard", price:1200, qty:15},          │
 │         {id:1, name:"Laptop", price:50000, qty:5},          │
 │         {id:2, name:"Mouse", price:500, qty:25}             │
 │     ]                                                          │
@@ -709,7 +709,7 @@ function recordRental(productId, renterName, returnDate, phoneNumber, address, a
 
 ---
 
-## ⏱️ Performance Analysis
+##  Performance Analysis
 
 ### **Big O Notation Reference**
 
@@ -764,7 +764,7 @@ Time
 
 ---
 
-## 🔗 Data Flow Chain
+##  Data Flow Chain
 
 ```
 inventory.json (Persistent Storage)
@@ -780,7 +780,7 @@ inventory.json (Updated)
 
 ---
 
-## 📌 Key Takeaways
+##  Key Takeaways
 
 1. **Struct Arrays** - Efficient way to store related data
 2. **Bubble Sort** - O(n²) but simple to understand

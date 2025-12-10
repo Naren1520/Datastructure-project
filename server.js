@@ -350,7 +350,7 @@ server.listen(PORT, () => {
     console.log(` Frontend: http://localhost:${PORT}/`);
     console.log(`Dashboard: http://localhost:${PORT}/dashboard.html`);
     console.log(`Products: http://localhost:${PORT}/products.html`);
-    console.log(`\n   C Backend API Endpoints (Only these are available):`);
+    console.log(`\n   C Backend API Endpoints:`);
     console.log(`   GET    /api/c/products              - Get all products`);
     console.log(`   POST   /api/c/product/add           - Add new product`);
     console.log(`   DELETE /api/c/product/delete        - Delete product`);
