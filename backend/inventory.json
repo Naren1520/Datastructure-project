@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Introduction to Java",
       "price": 2999,
-      "quantity": 5
+      "quantity": 84
     },
     {
       "id": 2,
@@ -89,8 +89,28 @@
       "name": "Data Structures and Algorithms in Java",
       "price": 1812.82,
       "quantity": 78
+    },
+    {
+      "id": 45,
+      "name": "iphone17promax",
+      "price": 100,
+      "quantity": 5
     }
   ],
-  "rentals": [],
+  "rentals": [
+    {
+      "rentalId": 1765439673114,
+      "productId": 1,
+      "productName": "Introduction to Java",
+      "renterName": "naren",
+      "rentDate": "2025-12-11",
+      "returnDate": "2025-12-24",
+      "phoneNumber": "8296833381",
+      "address": "kkkk",
+      "amountPaid": 455,
+      "status": "returned",
+      "returnedDate": "2025-12-11"
+    }
+  ],
   "sales": []
 }
