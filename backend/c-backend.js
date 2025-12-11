@@ -1,6 +1,6 @@
 // C Backend Integration Module
-// This module provides functions to call C backend operations
-// The C program reads/writes inventory.json directly
+// This provides functions to call C backend operations
+// The C program reads and writes inventory.json directly
 
 const fs = require('fs');
 const path = require('path');

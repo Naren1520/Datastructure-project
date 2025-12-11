@@ -4,7 +4,7 @@ const path = require('path');
 const url = require('url');
 const cBackend = require('./backend/c-backend');
 
-const PORT = process.env.PORT || 8040;
+const PORT = process.env.PORT || 8080;
 
 // Parse request body
 function parseBody(req, callback) {

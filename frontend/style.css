@@ -575,7 +575,7 @@ tr:hover {
    ========================================== */
 .charts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
     margin-top: var(--spacing-lg);
 }
@@ -585,12 +585,21 @@ tr:hover {
     padding: var(--spacing-lg);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 .chart-container h3 {
     margin-bottom: var(--spacing-md);
     color: var(--primary-color);
     font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.chart-container canvas {
+    flex: 1;
+    max-height: 350px;
 }
 
 
@@ -1490,7 +1499,7 @@ body.dark-mode .profile-image-preview {
     }
 
     .charts-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: var(--spacing-lg) !important;
     }
 
