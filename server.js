@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const cBackend = require('./backend/c-backend');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 8040;
 
@@ -202,6 +203,28 @@ const server = http.createServer((req, res) => {
         const result = cBackend.sortByPrice();
         res.writeHead(200);
         res.end(JSON.stringify(result));
+        return;
+    }
+
+    // GET - Chatbot configuration
+    if (pathname === '/api/config' && req.method === 'GET') {
+        res.writeHead(200);
+        res.end(JSON.stringify({
+            geminiApiKey: process.env.GEMINI_API_KEY || ''
+        }));
+        return;
+    }
+
+    // GET - Chatbot API Key
+    if (pathname === '/api/chatbot-key' && req.method === 'GET') {
+        const apiKey = process.env.GEMINI_API_KEY;
+        if (!apiKey) {
+            res.writeHead(500);
+            res.end(JSON.stringify({ error: 'GEMINI_API_KEY not configured in .env file' }));
+            return;
+        }
+        res.writeHead(200);
+        res.end(JSON.stringify({ apiKey }));
         return;
     }
 

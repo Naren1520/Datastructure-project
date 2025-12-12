@@ -136,7 +136,7 @@ rentals[0] = {
     rentalId: 1702250400000,
     productId: 1,
     productName: "Laptop",
-    renterName: "John Doe",
+    renterName: "Naren",
     rentDate: "2025-12-10",
     returnDate: "2025-12-17",
     phoneNumber: "9876543210",
@@ -342,7 +342,7 @@ Frontend: /api/c/rental/record (POST)
          ↓
 Body: {
     productId: 1,
-    renterName: "John Doe",
+    renterName: "Naren",
     returnDate: "2025-12-17",
     phoneNumber: "9876543210",
     address: "123 Main St",
@@ -572,7 +572,7 @@ Frontend: Updates rental status, redirects to rentals page
       "rentalId": 1702250400000,
       "productId": 1,
       "productName": "Laptop",
-      "renterName": "John Doe",
+      "renterName": "Naren",
       "rentDate": "2025-12-10",
       "returnDate": "2025-12-17",
       "phoneNumber": "9876543210",
@@ -904,7 +904,7 @@ npm start
 4. USER CHECKS RENTALS
    Frontend: Requests /api/c/rentals
    Backend: Reads rentals array, returns all rentals
-   Frontend: Shows active rental with John Doe
+   Frontend: Shows active rental with one person
 
 5. USER MARKS RENTAL RETURNED
    Frontend: Clicks "Return" on rental
